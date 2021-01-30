@@ -14,64 +14,65 @@ import {
 import { FontAwesome, Feather, Entypo } from "@expo/vector-icons";
 
 // import auth, { firebase } from "@react-native-firebase/auth";
+import * as firebase from "firebase";
 
 export class Registration extends Component {
-  //   constructor() {
-  //     super();
-  //     this.state = {
-  //       displayName: "",
-  //       email: "",
-  //       password: "",
-  //       isLoading: false,
-  //     };
-  //   }
+  constructor() {
+    super();
+    this.state = {
+      displayName: "",
+      email: "",
+      password: "",
+      isLoading: false,
+    };
+  }
 
-  //   updateInputVal = (val, prop) => {
-  //     const state = this.state;
-  //     state[prop] = val;
-  //     this.setState(state);
-  //   };
+  updateInputVal = (val, prop) => {
+    const state = this.state;
+    state[prop] = val;
+    this.setState(state);
+  };
 
-  //   registerUser = () => {
-  //     if (this.state.email === "" && this.state.password === "") {
-  //       Alert.alert("Enter details to is Register!");
-  //     } else {
-  //       this.setState({
-  //         isLoading: true,
-  //       });
-  //       firebase
-  //         .auth()
-  //         .createUserWithEmailAndPassword(this.state.email, this.state.password)
-  //         .then((res) => {
-  //           res.user.updateProfile({
-  //             displayName: this.state.displayName,
-  //           });
-  //           console.log("User registered successfully!");
-  //           this.setState({
-  //             isLoading: false,
-  //             displayName: "",
-  //             email: "",
-  //             password: "",
-  //           });
-  //           this.props.navigation.navigate("LogIn");
-  //         })
-  //         .catch((error) => this.setState({ errorMessage: error.message }))
-  //         .finally(() => {
-  //           this.setState({
-  //             isLoading: false,
-  //           });
-  //         });
-  //     }
-  //   };
+  registerUser = () => {
+    if (this.state.email === "" && this.state.password === "") {
+      Alert.alert("Enter details to is Register!");
+    } else {
+      this.setState({
+        isLoading: true,
+      });
+      firebase
+        .auth()
+        .createUserWithEmailAndPassword(this.state.email, this.state.password)
+        .then((res) => {
+          res.user.updateProfile({
+            displayName: this.state.displayName,
+          });
+          console.log("User registered successfully!");
+          this.setState({
+            isLoading: false,
+            displayName: "",
+            email: "",
+            password: "",
+          });
+          this.props.navigation.navigate("LogIn");
+        })
+        .catch((error) => this.setState({ errorMessage: error.message }))
+        .finally(() => {
+          this.setState({
+            isLoading: false,
+          });
+        });
+    }
+  };
 
   render() {
-    // if (this.state.isLoading) {
-    //   return (
-    //     <View style={styles.preloader}>
-    //       <ActivityIndicator size="large" color="#9E9E9E" />
-    //     </View>
-    //   );
-    // }
+    if (this.state.isLoading) {
+      return (
+        <View style={styles.preloader}>
+          <ActivityIndicator size="large" color="#9E9E9E" />
+        </View>
+      );
+    }
     return (
       <ImageBackground
         source={{

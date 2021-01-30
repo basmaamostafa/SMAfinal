@@ -13,60 +13,61 @@ import {
   TouchableOpacity,
 } from "react-native";
 // import auth, { firebase } from "@react-native-firebase/auth";
+import * as firebase from "firebase";
 
 export class LogIn extends Component {
-  //   constructor() {
-  //     super();
-  //     this.state = {
-  //       email: "",
-  //       password: "",
-  //       isLoading: false,
-  //     };
-  //   }
+  constructor() {
+    super();
+    this.state = {
+      email: "",
+      password: "",
+      isLoading: false,
+    };
+  }
 
-  //   updateInputVal = (val, prop) => {
-  //     const state = this.state;
-  //     state[prop] = val;
-  //     this.setState(state);
-  //   };
+  updateInputVal = (val, prop) => {
+    const state = this.state;
+    state[prop] = val;
+    this.setState(state);
+  };
 
-  //   userLogin = () => {
-  //     if (this.state.email === "" && this.state.password === "") {
-  //       Alert.alert("Enter details to signin!");
-  //     } else {
-  //       this.setState({
-  //         isLoading: true,
-  //       });
-  //       firebase
-  //         .auth()
-  //         .signInWithEmailAndPassword(this.state.email, this.state.password)
-  //         .then((res) => {
-  //           console.log(res);
-  //           console.log("User logged-in successfully!");
-  //           this.setState({
-  //             isLoading: false,
-  //             email: "",
-  //             password: "",
-  //           });
-  //           this.props.navigation.navigate("HomeScreen");
-  //         })
-  //         .catch((error) => this.setState({ errorMessage: error.message }))
-  //         .finally(() => {
-  //           this.setState({
-  //             isLoading: false,
-  //           });
-  //         });
-  //     }
-  //   };
+  userLogin = () => {
+    if (this.state.email === "" && this.state.password === "") {
+      Alert.alert("Enter details to signin!");
+    } else {
+      this.setState({
+        isLoading: true,
+      });
+      firebase
+        .auth()
+        .signInWithEmailAndPassword(this.state.email, this.state.password)
+        .then((res) => {
+          console.log(res);
+          console.log("User logged-in successfully!");
+          this.setState({
+            isLoading: false,
+            email: "",
+            password: "",
+          });
+          this.props.navigation.navigate("HomeScreen");
+        })
+        .catch((error) => this.setState({ errorMessage: error.message }))
+        .finally(() => {
+          this.setState({
+            isLoading: false,
+          });
+        });
+    }
+  };
 
   render() {
-    // if (this.state.isLoading) {
-    //   return (
-    //     <View style={styles.preloader}>
-    //       <ActivityIndicator size="large" color="#9E9E9E" />
-    //     </View>
-    //   );
-    // }
+    if (this.state.isLoading) {
+      return (
+        <View style={styles.preloader}>
+          <ActivityIndicator size="large" color="#9E9E9E" />
+        </View>
+      );
+    }
     return (
       <ImageBackground
         source={{
@@ -92,9 +93,10 @@ export class LogIn extends Component {
           />
           <TouchableOpacity
             style={styles.btn}
-            onPress={() => {
-              this.props.navigation.navigate("HomeScreen");
-            }}
+            onPress={() => this.userLogin()}
+            // onPress={() => {
+            //   this.props.navigation.navigate("HomeScreen");
+            // }}
           >
             <Text style={styles.btnText}>LogIn</Text>
           </TouchableOpacity>

@@ -27,6 +27,7 @@ import { useNavigation } from "@react-navigation/native";
 // import PostForm from "./PostHandle/PostForm";
 // import Post from "./PostHandle/Post";
 // import auth, { firebase } from "@react-native-firebase/auth";
+import * as firebase from "firebase";
 
 export class HomeScreen extends Component {
   constructor(props) {
@@ -42,15 +43,15 @@ export class HomeScreen extends Component {
     };
   }
 
-  //   signOut = () => {
-  //     firebase
-  //       .auth()
-  //       .signOut()
-  //       .then(() => {
-  //         this.props.navigation.navigate("LogIn");
-  //       })
-  //       .catch((error) => this.setState({ errorMessage: error.message }));
-  //   };
+  signOut = () => {
+    firebase
+      .auth()
+      .signOut()
+      .then(() => {
+        this.props.navigation.navigate("LogIn");
+      })
+      .catch((error) => this.setState({ errorMessage: error.message }));
+  };
 
   handleChange = (e) => {
     this.setState({
@@ -73,9 +74,9 @@ export class HomeScreen extends Component {
     this.setState({ taskList: filtterTask });
   };
   render() {
-    // this.state = {
-    // displayName: firebase.auth().currentUser.displayName,
-    // };
+    this.state = {
+      displayName: firebase.auth().currentUser.displayName,
+    };
     return (
       <Container>
         <Content contentContainerStyle={styles.container}>
@@ -84,15 +85,17 @@ export class HomeScreen extends Component {
             handleSubmit={this.handleSubmit}
             handleChange={this.handleChange}
           /> */}
-          {/* <Text style={styles.textStyle}>Hello, {this.state.displayName}</Text>
+          <Text>HI</Text>
+          <Text>HI</Text>
+
+          <Text style={styles.textStyle}>Hello, {this.state.displayName}</Text>
           <TouchableOpacity
             style={styles.btn}
             onPress={() => this.registerUser()}
           >
-            <Text style={styles.btnText}>Create Account</Text>
+            <Text style={styles.btnText}>LogOut</Text>
           </TouchableOpacity>
-          */}
-          <Text>HI</Text>
+
           {/* <PostsList
             taskList={this.state.taskList}
             handleDelete={this.handleDelete}
@@ -119,7 +122,7 @@ const styles = StyleSheet.create({
     padding: 10,
     marginTop: 20,
     borderRadius: 15,
-    width: 40,
+    width: 80,
   },
   btnText: {
     color: "#fff",

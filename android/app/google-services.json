@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "884747206930",
+    "project_id": "smafinal-10af4",
+    "storage_bucket": "smafinal-10af4.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:884747206930:android:5e57d4e23a6d0502f733cb",
+        "android_client_info": {
+          "package_name": "com.SocialMediApp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "884747206930-q5ib0nkcuqubs4v98v02e2j0i3mq03ba.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCQw_uI3T3R4iUDHgvUirSUYYRYZpOUnVI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "884747206930-q5ib0nkcuqubs4v98v02e2j0i3mq03ba.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

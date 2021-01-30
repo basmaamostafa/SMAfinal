@@ -13,7 +13,7 @@ import { HomeScreen } from "./component/homeScreen";
 // import { CameraPermission } from "./Component/Authentication/CameraPermission";
 // import { ProfileImagePicker } from "./Component/Authentication/ProfileImagePicker";
 // import PostForm from "./Component/PostHandle/PostForm";
-// import * as firebase from "firebase";
+import * as firebase from "firebase";
 
 const Stack = createStackNavigator();
 
@@ -86,17 +86,45 @@ const styles = StyleSheet.create({
   },
 });
 
-// var firebaseConfig = {
-//   apiKey: "AIzaSyD3VQOWE6cvKSKl8I_s7-hotpaF3Rd_LQY",
-//   authDomain: "social-media-app-c7cc6.firebaseapp.com",
-//   databaseURL: "https://social-media-app-c7cc6.firebaseio.com",
-//   projectId: "social-media-app-c7cc6",
-//   storageBucket: "social-media-app-c7cc6.appspot.com",
-//   messagingSenderId: "825738176295",
-//   appId: "1:433354287296:android:94f9604e42f3e7a9496525",
-//   measurementId: "G-XKL6NBJ0YC",
+var firebaseConfig = {
+  apiKey: "AIzaSyCQw_uI3T3R4iUDHgvUirSUYYRYZpOUnVI",
+  authDomain: "smafinal-10af4.firebaseapp.com",
+  databaseURL: "https://smafinal-10af4.firebaseio.com",
+  projectId: "smafinal-10af4",
+  storageBucket: "smafinal-10af4.appspot.com",
+  messagingSenderId: "884747206930",
+  appId: "1:884747206930:android:5e57d4e23a6d0502f733cb",
+};
+if (!firebase.apps.length) {
+  firebase.initializeApp(firebaseConfig);
+}
+// const dbh = firebase.firestore();
+
+// const firebaseConfig = {
+//   apiKey: "AIzaSyCQw_uI3T3R4iUDHgvUirSUYYRYZpOUnVI",
+//   authDomain: "smafinal-10af4.firebaseapp.com",
+//   databaseURL: "https://smafinal-10af4.firebaseio.com",
+//   projectId: "smafinal-10af4",
+//   storageBucket: "smafinal-10af4.appspot.com",
+//   messagingSenderId: "884747206930",
+//   appId: "1:884747206930:android:5e57d4e23a6d0502f733cb",
+//   // measurementId: 'G-measurement-id',
 // };
 // if (!firebase.apps.length) {
-//   firebase.initializeApp(firebaseConfig);
+//   firebase.initializeApp({});
+// } else {
+//   firebase.app(); // if already initialized, use that one
 // }
-// const dbh = firebase.firestore();
+
+// firebase.initializeApp(firebaseConfig);
+
+// var firebaseConfig = {
+//   apiKey: "AIzaSyDCLmhByEcNzE0SzTFUl1JB9b8WuKbfBfQ",
+//   authDomain: "smafinal-10af4.firebaseapp.com",
+//   projectId: "smafinal-10af4",
+//   storageBucket: "smafinal-10af4.appspot.com",
+//   messagingSenderId: "884747206930",
+//   appId: "1:884747206930:web:46f49874ae533a0cf733cb"
+// };
+// // Initialize Firebase
+// firebase.initializeApp(firebaseConfig);
