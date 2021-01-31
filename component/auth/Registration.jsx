@@ -12,6 +12,8 @@ import {
   InputText,
 } from "react-native";
 import { FontAwesome, Feather, Entypo } from "@expo/vector-icons";
+import { ProfileImagePicker } from "./ProfileImagePicker";
+import CameraPermission from "./CameraPermission";
 
 // import auth, { firebase } from "@react-native-firebase/auth";
 import * as firebase from "firebase";
@@ -82,6 +84,17 @@ export class Registration extends Component {
         style={styles.bgImg}
       >
         <View style={styles.container}>
+          <View style={[styles.imgIcon]}>
+            <TouchableOpacity
+              style={styles.btnIcon}
+              onPress={() => {
+                this.props.navigation.navigate("CameraPermission");
+              }}
+            >
+              <FontAwesome name="camera" size={28} color="#fff" />
+            </TouchableOpacity>
+            <ProfileImagePicker />
+          </View>
           <TextInput
             style={styles.inputStyle}
             placeholder="Name"

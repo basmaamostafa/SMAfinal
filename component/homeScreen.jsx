@@ -80,21 +80,16 @@ export class HomeScreen extends Component {
     return (
       <Container>
         <Content contentContainerStyle={styles.container}>
+          <TouchableOpacity style={styles.btn} onPress={() => this.signOut()}>
+            <Text style={styles.btnText}>LogOut</Text>
+          </TouchableOpacity>
           {/* <PostForm
             task={this.state.task}
             handleSubmit={this.handleSubmit}
             handleChange={this.handleChange}
           /> */}
-          <Text>HI</Text>
-          <Text>HI</Text>
 
           <Text style={styles.textStyle}>Hello, {this.state.displayName}</Text>
-          <TouchableOpacity
-            style={styles.btn}
-            onPress={() => this.registerUser()}
-          >
-            <Text style={styles.btnText}>LogOut</Text>
-          </TouchableOpacity>
 
           {/* <PostsList
             taskList={this.state.taskList}
@@ -120,7 +115,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
     backgroundColor: "#000",
     padding: 10,
-    marginTop: 20,
+    marginTop: 50,
+    marginLeft: 280,
     borderRadius: 15,
     width: 80,
   },
