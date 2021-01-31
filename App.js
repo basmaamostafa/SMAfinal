@@ -94,6 +94,7 @@ var firebaseConfig = {
 if (!firebase.apps.length) {
   firebase.initializeApp(firebaseConfig);
 }
+
 // const dbh = firebase.firestore();
 
 // const firebaseConfig = {

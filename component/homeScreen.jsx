@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   ScrollView,
   StatusBar,
+  Image,
 } from "react-native";
 import {
   Container,
@@ -73,10 +74,19 @@ export class HomeScreen extends Component {
     const filtterTask = this.state.taskList.filter((task) => task.id !== id);
     this.setState({ taskList: filtterTask });
   };
+  getImageURI = async (email) => {
+    const ref = firebase
+      .storage()
+      .ref("ProfileImages/" + email.replace(/\W/g, ""));
+    const url = await ref.getDownloadURL();
+    return url;
+  };
   render() {
     this.state = {
       displayName: firebase.auth().currentUser.displayName,
+      email: firebase.auth().currentUser.email,
     };
+
     return (
       <Container>
         <Content contentContainerStyle={styles.container}>
@@ -88,7 +98,9 @@ export class HomeScreen extends Component {
             handleSubmit={this.handleSubmit}
             handleChange={this.handleChange}
           /> */}
-
+          {/* image retrieve */}
+          <Image source={{ uri: this.getImageURI(this.state.email).uri }} />
+          
           <Text style={styles.textStyle}>Hello, {this.state.displayName}</Text>
 
           {/* <PostsList

@@ -2,8 +2,9 @@ import React, { useState, useEffect } from "react";
 import { Button, Image, View, Platform, TouchableOpacity } from "react-native";
 import * as ImagePicker from "expo-image-picker";
 import { Entypo } from "@expo/vector-icons";
+import * as firebase from "firebase";
 
-export function ProfileImagePicker() {
+export function ProfileImagePicker(props) {
   const [image, setImage] = useState(null);
 
   useEffect(() => {
@@ -26,12 +27,26 @@ export function ProfileImagePicker() {
       aspect: [4, 3],
       quality: 1,
     });
-
-    console.log(result);
-
+    // console.log(result);
     if (!result.cancelled) {
       setImage(result.uri);
+      this.uploadImage(result.uri, props.email)
+        .then(() => {
+          Alert.alert("Success");
+        })
+        .catch((error) => {
+          Alert.alert(error);
+        });
     }
+  };
+  uploadImage = async (uri, imageName) => {
+    const response = await fetch(uri);
+    const blob = await response.blob();
+    var ref = firebase
+      .storage()
+      .ref()
+      .child("ProfileImages/" + imageName.replace(/\W/g, ""));
+    return ref.put(blob);
   };
 
   return (

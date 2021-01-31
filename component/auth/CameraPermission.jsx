@@ -1,6 +1,11 @@
 import React, { Component, useState, useEffect } from "react";
-import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
+import { StyleSheet, Text, View, TouchableOpacity, Alert } from "react-native";
 import { Camera } from "expo-camera";
+import {
+  FontAwesome,
+  Ionicons,
+  MaterialCommunityIcons,
+} from "@expo/vector-icons";
 
 export function CameraPermission() {
   const [hasPermission, setHasPermission] = useState(null);
@@ -19,12 +24,24 @@ export function CameraPermission() {
   if (hasPermission === false) {
     return <Text>No access to camera</Text>;
   }
+  const takePicture = async () => {
+    if (this.camera) {
+      const options = { quality: 1, base64: true };
+      const data = await this.camera.takePictureAsync(options);
+      const source = data.uri;
+      if (source) {
+        await this.camera.pausePreview();
+        setIsPreview(true);
+        // console.log("picture source", source);
+      }
+    }
+  };
   return (
     <View style={styles.container}>
       <Camera style={styles.camera} type={type}>
         <View style={styles.buttonContainer}>
           <TouchableOpacity
-            style={styles.button}
+            style={{ width: 50 }}
             onPress={() => {
               setType(
                 type === Camera.Constants.Type.back
@@ -33,7 +50,29 @@ export function CameraPermission() {
               );
             }}
           >
-            <Text style={styles.text}> Flip </Text>
+            <MaterialCommunityIcons
+              name="camera-switch"
+              style={{
+                color: "#fff",
+                fontSize: 50,
+                backgroundColor: "black",
+              }}
+            />
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={{
+              alignSelf: "flex-end",
+              alignItems: "center",
+              alignContent: "center",
+              backgroundColor: "black",
+              marginLeft: 100,
+            }}
+            onPress={() => takePicture()}
+          >
+            <FontAwesome
+              name="camera"
+              style={{ color: "#fff", fontSize: 50 }}
+            />
           </TouchableOpacity>
         </View>
       </Camera>
@@ -53,15 +92,6 @@ const styles = StyleSheet.create({
     backgroundColor: "transparent",
     flexDirection: "row",
     margin: 20,
-  },
-  button: {
-    flex: 0.1,
-    alignSelf: "flex-end",
-    alignItems: "center",
-  },
-  text: {
-    fontSize: 18,
-    color: "white",
   },
 });
 
