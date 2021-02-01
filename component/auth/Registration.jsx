@@ -4,17 +4,13 @@ import {
   Text,
   View,
   TextInput,
-  Button,
   Alert,
   ActivityIndicator,
   ImageBackground,
   TouchableOpacity,
-  InputText,
+  Image,
 } from "react-native";
-import { FontAwesome, Feather, Entypo } from "@expo/vector-icons";
 import { ProfileImagePicker } from "./ProfileImagePicker";
-import CameraPermission from "./CameraPermission";
-
 // import auth, { firebase } from "@react-native-firebase/auth";
 import * as firebase from "firebase";
 
@@ -43,9 +39,7 @@ export class Registration extends Component {
   };
 
   async uploadUserProfilePicture() {
-    // Grab user's unique identifier
     var uid = firebase.auth().currentUser.uid;
-    // Upload the image into profileImages folder with the user's UID as name
     const response = await fetch(this.state.imgRef);
     const blob = await response.blob();
     var ref = firebase
@@ -114,19 +108,21 @@ export class Registration extends Component {
       >
         <View style={styles.container}>
           <View style={[styles.imgIcon]}>
-            <TouchableOpacity
-              style={styles.btnIcon}
-              onPress={() => {
-                this.props.navigation.navigate("CameraPermission");
-              }}
-            >
-              <FontAwesome name="camera" size={28} color="#fff" />
-            </TouchableOpacity>
             <ProfileImagePicker
               email={this.state.email}
               setImgRef={this.setImgRef}
             />
           </View>
+          {this.state.imgRef && (
+            <Image
+              source={{ uri: this.state.imgRef }}
+              style={{
+                width: 150,
+                height: 150,
+                borderRadius: 100,
+              }}
+            />
+          )}
           <TextInput
             style={styles.inputStyle}
             placeholder="Name"

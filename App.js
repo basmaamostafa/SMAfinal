@@ -10,8 +10,6 @@ import { LogIn } from "./component/auth/LogIn";
 import { SplashScreen } from "./component/splashScreen";
 import { HomeScreen } from "./component/homeScreen";
 // import Post from "./Component/PostHandle/Post";
-import { CameraPermission } from "./component/auth/CameraPermission";
-import { ProfileImagePicker } from "./component/auth/ProfileImagePicker";
 // import PostForm from "./Component/PostHandle/PostForm";
 import * as firebase from "firebase";
 
@@ -19,7 +17,7 @@ const Stack = createStackNavigator();
 
 export default class App extends Component {
   render() {
-    // return <HomeScreen />;
+    // return <Registration />;
 
     return (
       <NavigationContainer
@@ -50,14 +48,9 @@ export default class App extends Component {
             component={Registration}
             // options={{ headerLeft: null }}
           />
-    
+
           <Stack.Screen name="LogIn" component={LogIn} />
           {/* <Stack.Screen name="Post" component={Post} /> */}
-          <Stack.Screen name="CameraPermission" component={CameraPermission} />
-          {/* <Stack.Screen
-            name="ProfileImagePicker"
-            component={ProfileImagePicker}
-          /> */}
           <Stack.Screen
             name="HomeScreen"
             component={HomeScreen}
