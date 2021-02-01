@@ -15,7 +15,7 @@ import {
   Card,
   CardItem,
   Thumbnail,
-  Text,
+  // Text,
   Button,
   Icon,
   Left,
@@ -74,13 +74,13 @@ export class HomeScreen extends Component {
     const filtterTask = this.state.taskList.filter((task) => task.id !== id);
     this.setState({ taskList: filtterTask });
   };
-  getImageURI = async (email) => {
-    const ref = firebase
-      .storage()
-      .ref("ProfileImages/" + email.replace(/\W/g, ""));
-    const url = await ref.getDownloadURL();
-    return url;
-  };
+  // getImageURI = async (email) => {
+  //   const ref = firebase
+  //     .storage()
+  //     .ref("ProfileImages/" + email.replace(/\W/g, ""));
+  //   const url = await ref.getDownloadURL();
+  //   return url;
+  // };
   render() {
     this.state = {
       displayName: firebase.auth().currentUser.displayName,
@@ -99,8 +99,8 @@ export class HomeScreen extends Component {
             handleChange={this.handleChange}
           /> */}
           {/* image retrieve */}
-          <Image source={{ uri: this.getImageURI(this.state.email).uri }} />
-          
+          {/* <Image source={{ uri: this.getImageURI(this.state.email).uri }} /> */}
+
           <Text style={styles.textStyle}>Hello, {this.state.displayName}</Text>
 
           {/* <PostsList
