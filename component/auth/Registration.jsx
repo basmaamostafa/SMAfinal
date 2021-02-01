@@ -93,6 +93,8 @@ export class Registration extends Component {
             >
               <FontAwesome name="camera" size={28} color="#fff" />
             </TouchableOpacity>
+            
+            {/* <CameraPermission /> */}
             <ProfileImagePicker email={this.state.email} />
           </View>
           <TextInput
