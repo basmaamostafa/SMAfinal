@@ -24,9 +24,9 @@ import {
 } from "native-base";
 
 import { useNavigation } from "@react-navigation/native";
-// import PostsList from "./PostHandle/PostsList";
-// import PostForm from "./PostHandle/PostForm";
-// import Post from "./PostHandle/Post";
+import PostsList from "./PostHandle/PostsList";
+import PostForm from "./PostHandle/PostForm";
+import Post from "./PostHandle/Post";
 // import auth, { firebase } from "@react-native-firebase/auth";
 import * as firebase from "firebase";
 
@@ -35,12 +35,18 @@ export class HomeScreen extends Component {
     super(props);
     this.state = {
       taskList: [
-        { id: 1 + Math.random(), text: " Default text 1" },
+        {
+          id: 1 + Math.random(),
+          text: " Default text 1",
+          // img:
+          //   "https://www.freecodecamp.org/news/content/images/size/w600/2020/04/rn-firebase-auth.png",
+        },
         { id: 1 + Math.random(), text: " Default text 2" },
         { id: 1 + Math.random(), text: " Default text 3" },
       ],
       id: 1 + Math.random(),
       task: "",
+      // file: require("https://www.freecodecamp.org/news/content/images/size/w600/2020/04/rn-firebase-auth.png"),
     };
   }
 
@@ -59,6 +65,12 @@ export class HomeScreen extends Component {
       task: e,
     });
   };
+
+  // handleImg(event) {
+  //   this.setState({
+  //     file: URL.createObjectURL(event.target.files[0]),
+  //   });
+  // }
 
   handleSubmit = (e) => {
     const newTask = { id: this.state.id, text: this.state.task };
@@ -93,11 +105,11 @@ export class HomeScreen extends Component {
           <TouchableOpacity style={styles.btn} onPress={() => this.signOut()}>
             <Text style={styles.btnText}>LogOut</Text>
           </TouchableOpacity>
-          {/* <PostForm
+          <PostForm
             task={this.state.task}
             handleSubmit={this.handleSubmit}
             handleChange={this.handleChange}
-          /> */}
+          />
           {/* image retrieve */}
           {this.state.displayImage && (
             <Image
@@ -110,10 +122,10 @@ export class HomeScreen extends Component {
           )}
           <Text style={styles.textStyle}>Hello, {this.state.displayName}</Text>
 
-          {/* <PostsList
+          <PostsList
             taskList={this.state.taskList}
             handleDelete={this.handleDelete}
-          /> */}
+          />
 
           {/* <Text>home</Text> */}
           {/* <Post /> */}

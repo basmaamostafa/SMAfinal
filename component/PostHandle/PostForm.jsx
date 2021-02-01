@@ -22,6 +22,8 @@ import {
 } from "native-base";
 // import Post from "./Post";
 import { PostImagePicker } from "./PostImagePicker";
+// import firestore from '@react-native-firebase/firestore';
+
 
 export default class PostForm extends Component {
   constructor(props) {

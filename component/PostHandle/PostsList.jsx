@@ -26,25 +26,26 @@ export default class PostsList extends Component {
   constructor(props) {
     super(props);
     this.state = {};
+    // this.taskList = this.taskList.bind(this);
   }
   render() {
     const { taskList, handleDelete } = this.props;
 
     return (
-      <Container>
-          <ScrollView>
-            <View>
-              {taskList.map((task) => {
-                return (
-                  <Post
-                    key={task.id}
-                    text={task.text}
-                    handleDelete={() => handleDelete(task.id)}
-                  />
-                );
-              })}
-            </View>
-          </ScrollView>
+      <Container style={styles.container}>
+        <ScrollView>
+          <View>
+            {taskList.map((task) => {
+              return (
+                <Post
+                  key={task.id}
+                  text={task.text}
+                  handleDelete={() => handleDelete(task.id)}
+                />
+              );
+            })}
+          </View>
+        </ScrollView>
       </Container>
     );
   }
