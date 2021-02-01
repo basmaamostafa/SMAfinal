@@ -70,23 +70,23 @@ export class HomeScreen extends Component {
     });
   };
 
+  getImageURI = async (uri) => {
+    const ref = firebase.storage().ref("ProfileImages/" + uri);
+    const url = await ref.getDownloadURL();
+    this.setState({ displayImage: url });
+  };
+
   handleDelete = (id) => {
     const filtterTask = this.state.taskList.filter((task) => task.id !== id);
     this.setState({ taskList: filtterTask });
   };
-  // getImageURI = async (email) => {
-  //   const ref = firebase
-  //     .storage()
-  //     .ref("ProfileImages/" + email.replace(/\W/g, ""));
-  //   const url = await ref.getDownloadURL();
-  //   return url;
-  // };
-  render() {
-    this.state = {
-      displayName: firebase.auth().currentUser.displayName,
-      email: firebase.auth().currentUser.email,
-    };
 
+  componentDidMount() {
+    this.setState({ displayName: firebase.auth().currentUser.displayName });
+    this.getImageURI(firebase.auth().currentUser.uid);
+  }
+
+  render() {
     return (
       <Container>
         <Content contentContainerStyle={styles.container}>
@@ -99,8 +99,15 @@ export class HomeScreen extends Component {
             handleChange={this.handleChange}
           /> */}
           {/* image retrieve */}
-          {/* <Image source={{ uri: this.getImageURI(this.state.email).uri }} /> */}
-
+          {this.state.displayImage && (
+            <Image
+              source={{ uri: this.state.displayImage }}
+              style={{
+                width: 200,
+                height: 200,
+              }}
+            />
+          )}
           <Text style={styles.textStyle}>Hello, {this.state.displayName}</Text>
 
           {/* <PostsList

@@ -26,7 +26,10 @@ export class Registration extends Component {
       email: "",
       password: "",
       isLoading: false,
+      imgRef: null,
     };
+
+    this.setImgRef = this.setImgRef.bind(this);
   }
 
   updateInputVal = (val, prop) => {
@@ -34,6 +37,23 @@ export class Registration extends Component {
     state[prop] = val;
     this.setState(state);
   };
+
+  setImgRef = (imgRef) => {
+    this.setState({ imgRef: imgRef });
+  };
+
+  async uploadUserProfilePicture() {
+    // Grab user's unique identifier
+    var uid = firebase.auth().currentUser.uid;
+    // Upload the image into profileImages folder with the user's UID as name
+    const response = await fetch(this.state.imgRef);
+    const blob = await response.blob();
+    var ref = firebase
+      .storage()
+      .ref()
+      .child("ProfileImages/" + uid);
+    return ref.put(blob);
+  }
 
   registerUser = () => {
     if (this.state.email === "" && this.state.password === "") {
@@ -56,9 +76,18 @@ export class Registration extends Component {
             email: "",
             password: "",
           });
+        })
+        .then(() => {
+          this.uploadUserProfilePicture().catch((error) => {
+            this.setState({ errorMessage: error.message });
+            console.log(error);
+          });
           this.props.navigation.navigate("LogIn");
         })
-        .catch((error) => this.setState({ errorMessage: error.message }))
+        .catch((error) => {
+          this.setState({ errorMessage: error.message });
+          console.log(error);
+        })
         .finally(() => {
           this.setState({
             isLoading: false,
@@ -93,7 +122,10 @@ export class Registration extends Component {
             >
               <FontAwesome name="camera" size={28} color="#fff" />
             </TouchableOpacity>
-            <ProfileImagePicker email={this.state.email} />
+            <ProfileImagePicker
+              email={this.state.email}
+              setImgRef={this.setImgRef}
+            />
           </View>
           <TextInput
             style={styles.inputStyle}
