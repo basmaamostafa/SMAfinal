@@ -27,7 +27,6 @@ import { useNavigation } from "@react-navigation/native";
 import PostsList from "./PostHandle/PostsList";
 import PostForm from "./PostHandle/PostForm";
 import Post from "./PostHandle/Post";
-// import auth, { firebase } from "@react-native-firebase/auth";
 import * as firebase from "firebase";
 
 export class HomeScreen extends Component {
@@ -38,15 +37,15 @@ export class HomeScreen extends Component {
         {
           id: 1 + Math.random(),
           text: " Default text 1",
-          // img:
-          //   "https://www.freecodecamp.org/news/content/images/size/w600/2020/04/rn-firebase-auth.png",
+          img:
+            "https://www.freecodecamp.org/news/content/images/size/w600/2020/04/rn-firebase-auth.png",
         },
         { id: 1 + Math.random(), text: " Default text 2" },
-        { id: 1 + Math.random(), text: " Default text 3" },
+        // { id: 1 + Math.random(), text: " Default text 3" },
       ],
       id: 1 + Math.random(),
       task: "",
-      // file: require("https://www.freecodecamp.org/news/content/images/size/w600/2020/04/rn-firebase-auth.png"),
+      img: "",
     };
   }
 
@@ -66,19 +65,18 @@ export class HomeScreen extends Component {
     });
   };
 
-  // handleImg(event) {
-  //   this.setState({
-  //     file: URL.createObjectURL(event.target.files[0]),
-  //   });
-  // }
-
   handleSubmit = (e) => {
-    const newTask = { id: this.state.id, text: this.state.task };
+    const newTask = {
+      id: this.state.id,
+      text: this.state.task,
+      img: this.state.img,
+    };
     const updateTask = [...this.state.taskList, newTask];
     this.setState({
       taskList: updateTask,
       task: "",
       id: 1 + Math.random(),
+      img: "",
     });
   };
 
@@ -110,8 +108,7 @@ export class HomeScreen extends Component {
             handleSubmit={this.handleSubmit}
             handleChange={this.handleChange}
           />
-          {/* image retrieve */}
-          {this.state.displayImage && (
+          {/* {this.state.displayImage && (
             <Image
               source={{ uri: this.state.displayImage }}
               style={{
@@ -120,11 +117,13 @@ export class HomeScreen extends Component {
               }}
             />
           )}
-          <Text style={styles.textStyle}>Hello, {this.state.displayName}</Text>
+          <Text style={styles.textStyle}>Hello, {this.state.displayName}</Text> */}
 
           <PostsList
             taskList={this.state.taskList}
             handleDelete={this.handleDelete}
+            imgProfile={this.state.displayImage}
+            userName={this.state.displayName}
           />
 
           {/* <Text>home</Text> */}

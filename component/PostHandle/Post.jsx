@@ -14,10 +14,20 @@ import {
   Right,
 } from "native-base";
 import { MaterialCommunityIcons, AntDesign } from "@expo/vector-icons";
+import PostImagePicker from "./PostImagePicker";
+
 
 export default class Post extends Component {
   render() {
-    const { text, handleDelete, displayName } = this.props;
+    const {
+      text,
+      handleDelete,
+      userName,
+      imgProfile,
+      image,
+      setImage,
+    } = this.props;
+    // const [image, setImage] = this.props;
 
     return (
       <Content contentContainerStyle={styles.container}>
@@ -26,25 +36,40 @@ export default class Post extends Component {
             <Left>
               <Thumbnail
                 style={styles.profile}
-                source={{
-                  uri:
-                    "https://images.unsplash.com/photo-1610303200652-3f869cdd5dc5?ixid=MXwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwyN3x8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
-                }}
+                source={{ uri: imgProfile }}
+                // source={{
+                //   uri:
+                //     "https://images.unsplash.com/photo-1610303200652-3f869cdd5dc5?ixid=MXwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwyN3x8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
+                // }}
               />
               <Body>
-                <Text style={{ fontSize: 20 }}>name</Text>
+                <Text style={{ fontSize: 18 }}>{userName}</Text>
               </Body>
             </Left>
           </CardItem>
           <Text style={styles.caption}> {text}</Text>
           <CardItem cardBody>
-            <Image
+            {image && (
+              <Image
+                source={{ uri: image }}
+                style={{
+                  width: 270,
+                  height: 200,
+                  borderRadius: 5,
+
+                  alignSelf: "center",
+
+                  marginVertical: 10,
+                }}
+              />
+            )}
+            {/* <Image
               source={{
                 uri:
                   "https://images.unsplash.com/photo-1610303200652-3f869cdd5dc5?ixid=MXwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwyN3x8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
               }}
               style={{ height: 200, width: null, flex: 1 }}
-            />
+            /> */}
           </CardItem>
           <CardItem>
             <Left>
@@ -95,8 +120,8 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   profile: {
-    width: 50,
-    height: 50,
+    width: 45,
+    height: 45,
   },
   btns: {
     flex: 1,

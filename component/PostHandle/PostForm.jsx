@@ -20,15 +20,15 @@ import {
   Body,
   Right,
 } from "native-base";
-// import Post from "./Post";
+import Post from "./Post";
 import { PostImagePicker } from "./PostImagePicker";
-// import firestore from '@react-native-firebase/firestore';
-
 
 export default class PostForm extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {};
+  constructor() {
+    super();
+    this.state = {
+      // caption: "",
+    };
   }
   render() {
     const { handleSubmit, handleChange, task } = this.props;

@@ -26,10 +26,9 @@ export default class PostsList extends Component {
   constructor(props) {
     super(props);
     this.state = {};
-    // this.taskList = this.taskList.bind(this);
   }
   render() {
-    const { taskList, handleDelete } = this.props;
+    const { taskList, handleDelete, userName, imgProfile } = this.props;
 
     return (
       <Container style={styles.container}>
@@ -41,6 +40,8 @@ export default class PostsList extends Component {
                   key={task.id}
                   text={task.text}
                   handleDelete={() => handleDelete(task.id)}
+                  imgProfile={imgProfile}
+                  userName={userName}
                 />
               );
             })}
