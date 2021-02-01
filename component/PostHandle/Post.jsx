@@ -13,15 +13,14 @@ import {
   Body,
   Right,
 } from "native-base";
-import { AntDesign } from "@expo/vector-icons";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { MaterialCommunityIcons, AntDesign } from "@expo/vector-icons";
 
 export default class Post extends Component {
   render() {
     const { text, handleDelete, displayName } = this.props;
 
     return (
-      <Content>
+      <Content contentContainerStyle={styles.container}>
         <Card style={styles.card}>
           <CardItem>
             <Left>
@@ -87,9 +86,11 @@ export default class Post extends Component {
 // }
 
 const styles = StyleSheet.create({
-  card: {
-    justifyContent: "center",
+  container: {
     alignItems: "center",
+    // justifyContent: "center",
+  },
+  card: {
     width: "90%",
     marginBottom: 10,
   },
