@@ -15,7 +15,7 @@ import {
   Card,
   CardItem,
   Thumbnail,
-  // Text,
+  Text,
   Button,
   Icon,
   Left,
