@@ -27,9 +27,26 @@ export default class PostForm extends Component {
   constructor() {
     super();
     this.state = {
-      // caption: "",
+      imgRef: null,
     };
+
+    this.setImgRef = this.setImgRef.bind(this);
   }
+  setImgRef = (imgRef) => {
+    this.setState({ imgRef: imgRef });
+  };
+
+  // async uploadUserPostPicture() {
+  //   var uid = firebase.auth().currentUser.uid;
+  //   const response = await fetch(this.state.imgRef);
+  //   const blob = await response.blob();
+  //   var refPost = firebase
+  //     .storage()
+  //     .ref()
+  //     .child("PostImages/" + uid);
+  //   return ref.put(blob);
+  // }
+
   render() {
     const { handleSubmit, handleChange, task } = this.props;
 
@@ -50,6 +67,17 @@ export default class PostForm extends Component {
             email={this.state.email}
             setImgRef={this.setImgRef}
           />
+          {this.state.imgRef && (
+            <Image
+              source={{ uri: this.state.imgRef }}
+              style={{
+                width: 280,
+                height: 150,
+                borderRadius: 10,
+                marginVertical: 10,
+              }}
+            />
+          )}
           <TouchableOpacity style={styles.btn} onPress={handleSubmit}>
             <Text style={styles.btnText}>Add</Text>
           </TouchableOpacity>
