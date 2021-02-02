@@ -114,12 +114,26 @@ export class HomeScreen extends Component {
     this.setState({ displayImage: url });
   };
 
+  handleEdit = (id) => {
+    const filtterTask = this.state.taskList.filter((task) => task.id !== id); //return array with items dont have the same id
+    // this.setState({ taskList: filtterTask });
+    const selectedItem = this.state.taskList.find((task) => task.id === id); //match id
+    console.log(selectedItem);
+    this.setState({
+      taskList: filtterTask,
+      taskList: filtterTask.text,
+      taskList: filtterTask.id,
+      // id: id,
+      editItem: true,
+    });
+  };
+
   handleDelete = (id) => {
     const postId = firebase.auth().currentUser.uid;
     const filtterTask = this.state.taskList.filter((task) => task.id !== id);
     this.setState({ taskList: filtterTask });
     db.collection("posts")
-      .doc(post)
+      .doc("item.id")
       .delete()
       .then((item) => {
         console.log("User deleted!");
@@ -157,6 +171,7 @@ export class HomeScreen extends Component {
           <PostsList
             taskList={this.state.taskList}
             handleDelete={this.handleDelete}
+            handleEdit={this.handleEdit}
             imgProfile={this.state.displayImage}
             userName={this.state.displayName}
           />
