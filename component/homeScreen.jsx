@@ -29,6 +29,20 @@ import PostForm from "./PostHandle/PostForm";
 import Post from "./PostHandle/Post";
 import * as firebase from "firebase";
 
+var firebaseConfig = {
+  apiKey: "AIzaSyCQw_uI3T3R4iUDHgvUirSUYYRYZpOUnVI",
+  authDomain: "smafinal-10af4.firebaseapp.com",
+  databaseURL: "https://smafinal-10af4.firebaseio.com",
+  projectId: "smafinal-10af4",
+  storageBucket: "smafinal-10af4.appspot.com",
+  messagingSenderId: "884747206930",
+  appId: "1:884747206930:android:5e57d4e23a6d0502f733cb",
+};
+if (!firebase.apps.length) {
+  firebase.initializeApp(firebaseConfig);
+}
+var db = firebase.firestore();
+
 export class HomeScreen extends Component {
   constructor(props) {
     super(props);
@@ -71,6 +85,15 @@ export class HomeScreen extends Component {
       text: this.state.task,
       img: this.state.img,
     };
+    // console.log(db);
+    db.collection("posts")
+      .add(newTask)
+      .then((item) => {
+        console.log(item.id);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
     const updateTask = [...this.state.taskList, newTask];
     this.setState({
       taskList: updateTask,
