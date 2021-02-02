@@ -87,34 +87,3 @@ var firebaseConfig = {
 if (!firebase.apps.length) {
   firebase.initializeApp(firebaseConfig);
 }
-
-// const dbh = firebase.firestore();
-
-// const firebaseConfig = {
-//   apiKey: "AIzaSyCQw_uI3T3R4iUDHgvUirSUYYRYZpOUnVI",
-//   authDomain: "smafinal-10af4.firebaseapp.com",
-//   databaseURL: "https://smafinal-10af4.firebaseio.com",
-//   projectId: "smafinal-10af4",
-//   storageBucket: "smafinal-10af4.appspot.com",
-//   messagingSenderId: "884747206930",
-//   appId: "1:884747206930:android:5e57d4e23a6d0502f733cb",
-//   // measurementId: 'G-measurement-id',
-// };
-// if (!firebase.apps.length) {
-//   firebase.initializeApp({});
-// } else {
-//   firebase.app(); // if already initialized, use that one
-// }
-
-// firebase.initializeApp(firebaseConfig);
-
-// var firebaseConfig = {
-//   apiKey: "AIzaSyDCLmhByEcNzE0SzTFUl1JB9b8WuKbfBfQ",
-//   authDomain: "smafinal-10af4.firebaseapp.com",
-//   projectId: "smafinal-10af4",
-//   storageBucket: "smafinal-10af4.appspot.com",
-//   messagingSenderId: "884747206930",
-//   appId: "1:884747206930:web:46f49874ae533a0cf733cb"
-// };
-// // Initialize Firebase
-// firebase.initializeApp(firebaseConfig);

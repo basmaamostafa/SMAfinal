@@ -22,6 +22,9 @@ import {
 } from "native-base";
 import Post from "./Post";
 import { PostImagePicker } from "./PostImagePicker";
+import * as firebase from 'firebase';
+
+
 
 export default class PostForm extends Component {
   constructor() {
