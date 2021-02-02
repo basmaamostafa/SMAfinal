@@ -92,7 +92,7 @@ export class HomeScreen extends Component {
         console.log(item.id);
       })
       .catch((error) => {
-        console.log(error);
+        console.log("error");
       });
     const updateTask = [...this.state.taskList, newTask];
     this.setState({
