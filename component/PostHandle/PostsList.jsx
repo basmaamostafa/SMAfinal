@@ -28,7 +28,13 @@ export default class PostsList extends Component {
     this.state = {};
   }
   render() {
-    const { taskList, handleDelete, userName, imgProfile,handleEdit } = this.props;
+    const {
+      taskList,
+      handleDelete,
+      userName,
+      imgProfile,
+      handleEdit,
+    } = this.props;
 
     return (
       <Container style={styles.container}>

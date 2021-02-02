@@ -84,7 +84,6 @@ export class HomeScreen extends Component {
       id: this.state.id,
       text: this.state.task,
       img: this.state.img,
-      // uid: this.uid,
     };
     // console.log(db);
     db.collection("posts")
@@ -96,7 +95,7 @@ export class HomeScreen extends Component {
         console.log(item.id);
       })
       .catch((error) => {
-        console.log(error);
+        console.log("error");
       });
     const updateTask = [...this.state.taskList, newTask];
     this.setState({
@@ -104,7 +103,6 @@ export class HomeScreen extends Component {
       task: "",
       id: 1 + Math.random(),
       img: "",
-      // uid: this.uid,
     });
   };
 
@@ -115,14 +113,14 @@ export class HomeScreen extends Component {
   };
 
   handleEdit = (id) => {
-    const filtterTask = this.state.taskList.filter((task) => task.id !== id); //return array with items dont have the same id
+    // const filtterTask = this.state.taskList.filter((task) => task.id !== id); //return array with items dont have the same id
     // this.setState({ taskList: filtterTask });
     const selectedItem = this.state.taskList.find((task) => task.id === id); //match id
     console.log(selectedItem);
     this.setState({
-      taskList: filtterTask,
-      taskList: filtterTask.text,
-      taskList: filtterTask.id,
+      taskList: selectedItem,
+      taskList: selectedItem.text,
+      taskList: selectedItem.id,
       // id: id,
       editItem: true,
     });
@@ -131,12 +129,13 @@ export class HomeScreen extends Component {
   handleDelete = (id) => {
     const postId = firebase.auth().currentUser.uid;
     const filtterTask = this.state.taskList.filter((task) => task.id !== id);
+    // let docId = e.parentElement.getAttribute("data-id");
     this.setState({ taskList: filtterTask });
     db.collection("posts")
-      .doc("item.id")
+      .doc("post")
       .delete()
       .then((item) => {
-        console.log("User deleted!");
+        console.log("Post deleted!");
       });
   };
 
@@ -214,3 +213,16 @@ const styles = StyleSheet.create({
     // marginVertical: 50,
   },
 });
+
+var firebaseConfig = {
+  apiKey: "AIzaSyCQw_uI3T3R4iUDHgvUirSUYYRYZpOUnVI",
+  authDomain: "smafinal-10af4.firebaseapp.com",
+  databaseURL: "https://smafinal-10af4.firebaseio.com",
+  projectId: "smafinal-10af4",
+  storageBucket: "smafinal-10af4.appspot.com",
+  messagingSenderId: "884747206930",
+  appId: "1:884747206930:android:5e57d4e23a6d0502f733cb",
+};
+if (!firebase.apps.length) {
+  firebase.initializeApp(firebaseConfig);
+}
