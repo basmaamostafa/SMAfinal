@@ -15,9 +15,20 @@ import {
 } from "native-base";
 import { MaterialCommunityIcons, AntDesign } from "@expo/vector-icons";
 import PostImagePicker from "./PostImagePicker";
-
+// import firestore from "@react-native-firebase/firestore";
 
 export default class Post extends Component {
+  // constructor(props) {
+  //   super(props);
+  //   this.getUser();
+  // }
+  // getUser = async () => {
+  //   const userDocument = await firestore()
+  //     .collection("Users")
+  //     .doc("IdltLtB5zOirN9pAEpQJ")
+  //     .get();
+  //   console.log(userDocument);
+  // };
   render() {
     const {
       text,

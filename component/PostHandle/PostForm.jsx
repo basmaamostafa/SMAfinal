@@ -45,8 +45,11 @@ export default class PostForm extends Component {
             onChangeText={handleChange}
             value={task}
           />
-          <PostImagePicker />
-
+          {/* <PostImagePicker /> */}
+          <PostImagePicker
+            email={this.state.email}
+            setImgRef={this.setImgRef}
+          />
           <TouchableOpacity style={styles.btn} onPress={handleSubmit}>
             <Text style={styles.btnText}>Add</Text>
           </TouchableOpacity>
