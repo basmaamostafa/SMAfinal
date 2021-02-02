@@ -84,6 +84,7 @@ export class HomeScreen extends Component {
       id: this.state.id,
       text: this.state.task,
       img: this.state.img,
+      // uid: this.uid,
     };
     // console.log(db);
     db.collection("posts")
@@ -95,7 +96,7 @@ export class HomeScreen extends Component {
         console.log(item.id);
       })
       .catch((error) => {
-        console.log("error");
+        console.log(error);
       });
     const updateTask = [...this.state.taskList, newTask];
     this.setState({
@@ -103,6 +104,7 @@ export class HomeScreen extends Component {
       task: "",
       id: 1 + Math.random(),
       img: "",
+      // uid: this.uid,
     });
   };
 

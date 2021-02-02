@@ -43,9 +43,10 @@ export function PostImagePicker(props) {
     });
     if (!result.cancelled) {
       props.setImgRef(result.uri);
+      // 
     }
   };
-
+ 
   return (
     <View
       style={{
@@ -71,7 +72,7 @@ export function PostImagePicker(props) {
       >
         <Entypo name="images" size={28} color="#000" />
       </TouchableOpacity>
-       {/* {image && (
+      {/* {image && (
         <Image
           source={{ uri: image }}
           style={{

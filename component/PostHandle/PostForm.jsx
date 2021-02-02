@@ -22,9 +22,7 @@ import {
 } from "native-base";
 import Post from "./Post";
 import { PostImagePicker } from "./PostImagePicker";
-import * as firebase from 'firebase';
-
-
+import * as firebase from "firebase";
 
 export default class PostForm extends Component {
   constructor() {
@@ -32,23 +30,27 @@ export default class PostForm extends Component {
     this.state = {
       imgRef: null,
     };
-
     this.setImgRef = this.setImgRef.bind(this);
   }
+  updateInputVal = (val, prop) => {
+    const state = this.state;
+    state[prop] = val;
+    this.setState(state);
+  };
   setImgRef = (imgRef) => {
     this.setState({ imgRef: imgRef });
   };
 
-  // async uploadUserPostPicture() {
-  //   var uid = firebase.auth().currentUser.uid;
-  //   const response = await fetch(this.state.imgRef);
-  //   const blob = await response.blob();
-  //   var refPost = firebase
-  //     .storage()
-  //     .ref()
-  //     .child("PostImages/" + uid);
-  //   return ref.put(blob);
-  // }
+  async uploadUserPostPicture() {
+    var uid = firebase.auth().currentUser.uid;
+    const response = await fetch(this.state.imgRef);
+    const blob = await response.blob();
+    var ref = firebase
+      .storage()
+      .ref()
+      .child("PostImages/" + uid);
+    return ref.put(blob);
+  }
 
   render() {
     const { handleSubmit, handleChange, task } = this.props;
