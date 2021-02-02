@@ -60,6 +60,11 @@ export default class App extends Component {
               },
             }}
           />
+          {/* <Stack.Screen
+            name="UserDetailScreen"
+            component={UserDetailScreen}
+            options={{ title: "User Detail" }}
+          /> */}
         </Stack.Navigator>
       </NavigationContainer>
     );

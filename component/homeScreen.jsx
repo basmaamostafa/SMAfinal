@@ -48,12 +48,12 @@ export class HomeScreen extends Component {
     super(props);
     this.state = {
       taskList: [
-        {
-          id: 1 + Math.random(),
-          text: " Default text 1",
-          img:
-            "https://www.freecodecamp.org/news/content/images/size/w600/2020/04/rn-firebase-auth.png",
-        },
+        // {
+        // id: 1 + Math.random(),
+        // text: " Default text 1",
+        // img:
+        // "https://www.freecodecamp.org/news/content/images/size/w600/2020/04/rn-firebase-auth.png",
+        // },
         { id: 1 + Math.random(), text: " Default text 2" },
         // { id: 1 + Math.random(), text: " Default text 3" },
       ],
@@ -87,6 +87,9 @@ export class HomeScreen extends Component {
     };
     // console.log(db);
     db.collection("posts")
+      // .document("post")
+      // .set(caption)
+
       .add(newTask)
       .then((item) => {
         console.log(item.id);
@@ -110,8 +113,15 @@ export class HomeScreen extends Component {
   };
 
   handleDelete = (id) => {
+    const postId = firebase.auth().currentUser.uid;
     const filtterTask = this.state.taskList.filter((task) => task.id !== id);
     this.setState({ taskList: filtterTask });
+    db.collection("posts")
+      .doc(post)
+      .delete()
+      .then((item) => {
+        console.log("User deleted!");
+      });
   };
 
   componentDidMount() {
