@@ -37,6 +37,7 @@ export default class Post extends Component {
       imgProfile,
       image,
       setImage,
+      handleEdit,
     } = this.props;
     // const [image, setImage] = this.props;
 
@@ -97,6 +98,7 @@ export default class Post extends Component {
                     name="comment-edit"
                     size={33}
                     color="black"
+                    onPress={handleEdit}
                   />
                 </Button>
                 <Button transparent style={styles.btn}>
