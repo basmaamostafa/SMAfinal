@@ -118,7 +118,7 @@ export default class Post extends Component {
                     name="comment-edit"
                     size={33}
                     color="black"
-                    onPress={handleEdit}
+                    // onPress={handleEdit}
                   />
                 </Button>
                 <Button transparent style={styles.btn}>

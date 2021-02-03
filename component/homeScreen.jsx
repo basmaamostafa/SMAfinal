@@ -67,7 +67,8 @@ export class HomeScreen extends Component {
     this.setState({ displayImage: url });
   };
 
-  getPosts = async () => {//get all posts
+  getPosts = async () => {
+    //get all posts
     const result = await db.collection("posts").get();
     const taskList = result.docs.map((doc) => {
       return { id: doc.id, ...doc.data() };
@@ -75,19 +76,7 @@ export class HomeScreen extends Component {
     this.setState({ taskList: taskList });
   };
 
-  handleEdit = (id) => {
-    // const filtterTask = this.state.taskList.filter((task) => task.id !== id); //return array with items dont have the same id
-    // this.setState({ taskList: filtterTask });
-    const selectedItem = this.state.taskList.find((task) => task.id === id); //match id
-    console.log(selectedItem);
-    this.setState({
-      taskList: selectedItem,
-      taskList: selectedItem.text,
-      taskList: selectedItem.id,
-      // id: id,
-      editItem: true,
-    });
-  };
+
 
   handleDelete = async (id) => {
     await db
@@ -123,27 +112,14 @@ export class HomeScreen extends Component {
             <Text style={styles.btnText}>LogOut</Text>
           </TouchableOpacity>
           <PostForm updateTasks={() => this.getPosts()} />
-          {/* {this.state.displayImage && (
-            <Image
-              source={{ uri: this.state.displayImage }}
-              style={{
-                width: 200,
-                height: 200,
-              }}
-            />
-          )}
-          <Text style={styles.textStyle}>Hello, {this.state.displayName}</Text> */}
 
           <PostsList
             taskList={this.state.taskList}
             handleDelete={this.handleDelete}
-            handleEdit={this.handleEdit}
+            // handleEdit={this.handleEdit}
           />
 
-          {/* <Text>home</Text> */}
-          {/* <Post /> */}
         </Content>
-        {/* <StatusBar/> */}
       </Container>
     );
   }

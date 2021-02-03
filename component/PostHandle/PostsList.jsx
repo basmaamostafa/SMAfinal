@@ -39,7 +39,7 @@ export default class PostsList extends Component {
               text={task.text}
               id={task.id}
               handleDelete={() => handleDelete(task.id)}
-              handleEdit={() => handleEdit(task.id)}
+              // handleEdit={() => handleEdit(task.id)}
               posterId={task.posterId}
               posterName={task.posterName}
             />
