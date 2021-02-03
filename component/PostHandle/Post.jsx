@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { useNavigation } from "@react-navigation/native";
 import { Image, View, StyleSheet } from "react-native";
 import {
   Container,
@@ -14,21 +13,39 @@ import {
   Right,
 } from "native-base";
 import { MaterialCommunityIcons, AntDesign } from "@expo/vector-icons";
-import PostImagePicker from "./PostImagePicker";
-// import firestore from "@react-native-firebase/firestore";
+import * as firebase from "firebase";
+
+var firebaseConfig = {
+  apiKey: "AIzaSyCQw_uI3T3R4iUDHgvUirSUYYRYZpOUnVI",
+  authDomain: "smafinal-10af4.firebaseapp.com",
+  databaseURL: "https://smafinal-10af4.firebaseio.com",
+  projectId: "smafinal-10af4",
+  storageBucket: "smafinal-10af4.appspot.com",
+  messagingSenderId: "884747206930",
+  appId: "1:884747206930:android:5e57d4e23a6d0502f733cb",
+};
+if (!firebase.apps.length) {
+  firebase.initializeApp(firebaseConfig);
+}
 
 export default class Post extends Component {
-  // constructor(props) {
-  //   super(props);
-  //   this.getUser();
-  // }
-  // getUser = async () => {
-  //   const userDocument = await firestore()
-  //     .collection("Users")
-  //     .doc("IdltLtB5zOirN9pAEpQJ")
-  //     .get();
-  //   console.log(userDocument);
-  // };
+  constructor(props) {
+    super(props);
+    this.state = {
+      postImage: null,
+    };
+  }
+
+  getImageURI = async (postID) => {
+    const ref = firebase.storage().ref("PostImages/" + postID);
+    const url = await ref.getDownloadURL();
+    this.setState({ postImage: url });
+  };
+
+  componentDidMount() {
+    this.getImageURI(this.props.id);
+  }
+
   render() {
     const {
       text,
@@ -36,24 +53,18 @@ export default class Post extends Component {
       userName,
       imgProfile,
       image,
-      setImage,
       handleEdit,
+      id,
     } = this.props;
-    // const [image, setImage] = this.props;
+
+    const { postImage } = this.state;
 
     return (
       <Content contentContainerStyle={styles.container}>
         <Card style={styles.card}>
           <CardItem>
             <Left>
-              <Thumbnail
-                style={styles.profile}
-                source={{ uri: imgProfile }}
-                // source={{
-                //   uri:
-                //     "https://images.unsplash.com/photo-1610303200652-3f869cdd5dc5?ixid=MXwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwyN3x8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
-                // }}
-              />
+              <Thumbnail style={styles.profile} source={{ uri: imgProfile }} />
               <Body>
                 <Text style={{ fontSize: 18 }}>{userName}</Text>
               </Body>
@@ -75,13 +86,14 @@ export default class Post extends Component {
                 }}
               />
             )}
-            {/* <Image
-              source={{
-                uri:
-                  "https://images.unsplash.com/photo-1610303200652-3f869cdd5dc5?ixid=MXwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwyN3x8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
-              }}
-              style={{ height: 200, width: null, flex: 1 }}
-            /> */}
+            {postImage && (
+              <Image
+                source={{
+                  uri: postImage,
+                }}
+                style={{ height: 200, width: null, flex: 1 }}
+              />
+            )}
           </CardItem>
           <CardItem>
             <Left>
@@ -106,7 +118,7 @@ export default class Post extends Component {
                     name="delete-empty"
                     size={33}
                     color="black"
-                    onPress={handleDelete}
+                    onPress={() => handleDelete(id)}
                   />
                 </Button>
               </View>

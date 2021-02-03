@@ -24,37 +24,76 @@ import Post from "./Post";
 import { PostImagePicker } from "./PostImagePicker";
 import * as firebase from "firebase";
 
+var firebaseConfig = {
+  apiKey: "AIzaSyCQw_uI3T3R4iUDHgvUirSUYYRYZpOUnVI",
+  authDomain: "smafinal-10af4.firebaseapp.com",
+  databaseURL: "https://smafinal-10af4.firebaseio.com",
+  projectId: "smafinal-10af4",
+  storageBucket: "smafinal-10af4.appspot.com",
+  messagingSenderId: "884747206930",
+  appId: "1:884747206930:android:5e57d4e23a6d0502f733cb",
+};
+if (!firebase.apps.length) {
+  firebase.initializeApp(firebaseConfig);
+}
+
+var db = firebase.firestore();
+
 export default class PostForm extends Component {
   constructor() {
     super();
     this.state = {
+      task: "",
+      img: "",
       imgRef: null,
     };
     this.setImgRef = this.setImgRef.bind(this);
   }
-  updateInputVal = (val, prop) => {
-    const state = this.state;
-    state[prop] = val;
-    this.setState(state);
-  };
+
   setImgRef = (imgRef) => {
     this.setState({ imgRef: imgRef });
   };
 
-  async uploadUserPostPicture() {
-    var uid = firebase.auth().currentUser.uid;
+  handleChange = (e) => {
+    this.setState({
+      task: e,
+    });
+  };
+
+  handleSubmit = async () => {
+    var newTask = {
+      text: this.state.task,
+    };
+
+    await db
+      .collection("posts")
+      .add(newTask)
+      .then(async (item) => {
+        await this.uploadPostImg(item.id);
+        newTask.id = item.id;
+      })
+      .then(() => {
+        this.props.updateTasks();
+        this.setState({
+          task: "",
+        });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  uploadPostImg = async (postId) => {
     const response = await fetch(this.state.imgRef);
     const blob = await response.blob();
     var ref = firebase
       .storage()
       .ref()
-      .child("PostImages/" + uid);
+      .child("PostImages/" + postId);
     return ref.put(blob);
-  }
+  };
 
   render() {
-    const { handleSubmit, handleChange, task } = this.props;
-
     return (
       // <Container>
       <Content contentContainerStyle={styles.container}>
@@ -64,8 +103,8 @@ export default class PostForm extends Component {
             style={styles.textInput}
             placeholder="Write Your Caption"
             placeholderTextColor="rgba(0,0,0,0.5)"
-            onChangeText={handleChange}
-            value={task}
+            onChangeText={this.handleChange}
+            value={this.task}
           />
           {/* <PostImagePicker /> */}
           <PostImagePicker
@@ -83,7 +122,7 @@ export default class PostForm extends Component {
               }}
             />
           )}
-          <TouchableOpacity style={styles.btn} onPress={handleSubmit}>
+          <TouchableOpacity style={styles.btn} onPress={this.handleSubmit}>
             <Text style={styles.btnText}>Add</Text>
           </TouchableOpacity>
         </View>

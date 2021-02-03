@@ -37,24 +37,21 @@ export default class PostsList extends Component {
     } = this.props;
 
     return (
-      <Container style={styles.container}>
-        <ScrollView>
-          <View>
-            {taskList.map((task) => {
-              return (
-                <Post
-                  key={task.id}
-                  text={task.text}
-                  handleDelete={() => handleDelete(task.id)}
-                  handleEdit={() => handleEdit(task.id)}
-                  imgProfile={imgProfile}
-                  userName={userName}
-                />
-              );
-            })}
-          </View>
-        </ScrollView>
-      </Container>
+      <ScrollView>
+        {taskList.map((task) => {
+          return (
+            <Post
+              key={task.id}
+              text={task.text}
+              id={task.id}
+              handleDelete={() => handleDelete(task.id)}
+              handleEdit={() => handleEdit(task.id)}
+              imgProfile={imgProfile}
+              userName={userName}
+            />
+          );
+        })}
+      </ScrollView>
     );
   }
 }

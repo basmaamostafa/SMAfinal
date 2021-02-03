@@ -47,19 +47,7 @@ export class HomeScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      taskList: [
-        // {
-        // id: 1 + Math.random(),
-        // text: " Default text 1",
-        // img:
-        // "https://www.freecodecamp.org/news/content/images/size/w600/2020/04/rn-firebase-auth.png",
-        // },
-        { id: 1 + Math.random(), text: " Default text 2" },
-        // { id: 1 + Math.random(), text: " Default text 3" },
-      ],
-      id: 1 + Math.random(),
-      task: "",
-      img: "",
+      taskList: [],
     };
   }
 
@@ -73,43 +61,18 @@ export class HomeScreen extends Component {
       .catch((error) => this.setState({ errorMessage: error.message }));
   };
 
-  handleChange = (e) => {
-    this.setState({
-      task: e,
-    });
-  };
-
-  handleSubmit = (e) => {
-    const newTask = {
-      id: this.state.id,
-      text: this.state.task,
-      img: this.state.img,
-    };
-    // console.log(db);
-    db.collection("posts")
-      // .document("post")
-      // .set(caption)
-
-      .add(newTask)
-      .then((item) => {
-        console.log(item.id);
-      })
-      .catch((error) => {
-        console.log("error");
-      });
-    const updateTask = [...this.state.taskList, newTask];
-    this.setState({
-      taskList: updateTask,
-      task: "",
-      id: 1 + Math.random(),
-      img: "",
-    });
-  };
-
   getImageURI = async (uri) => {
     const ref = firebase.storage().ref("ProfileImages/" + uri);
     const url = await ref.getDownloadURL();
     this.setState({ displayImage: url });
+  };
+
+  getPosts = async () => {
+    const result = await db.collection("posts").get();
+    const taskList = result.docs.map((doc) => {
+      return { id: doc.id, ...doc.data() };
+    });
+    this.setState({ taskList: taskList });
   };
 
   handleEdit = (id) => {
@@ -126,20 +89,28 @@ export class HomeScreen extends Component {
     });
   };
 
-  handleDelete = (id) => {
-    const postId = firebase.auth().currentUser.uid;
-    const filtterTask = this.state.taskList.filter((task) => task.id !== id);
-    // let docId = e.parentElement.getAttribute("data-id");
-    this.setState({ taskList: filtterTask });
-    db.collection("posts")
-      .doc("post")
+  handleDelete = async (id) => {
+    await db
+      .collection("posts")
+      .doc(id)
       .delete()
-      .then((item) => {
-        console.log("Post deleted!");
+      .then(() => {
+        // Create a reference to the file to delete
+        var imgRef = firebase.storage().ref("PostImages/" + id);
+        // Delete the file
+        imgRef
+          .delete()
+          .then(() => {
+            this.getPosts();
+          })
+          .catch((error) => {
+            console.log(error);
+          });
       });
   };
 
   componentDidMount() {
+    this.getPosts();
     this.setState({ displayName: firebase.auth().currentUser.displayName });
     this.getImageURI(firebase.auth().currentUser.uid);
   }
@@ -151,11 +122,7 @@ export class HomeScreen extends Component {
           <TouchableOpacity style={styles.btn} onPress={() => this.signOut()}>
             <Text style={styles.btnText}>LogOut</Text>
           </TouchableOpacity>
-          <PostForm
-            task={this.state.task}
-            handleSubmit={this.handleSubmit}
-            handleChange={this.handleChange}
-          />
+          <PostForm updateTasks={() => this.getPosts()} />
           {/* {this.state.displayImage && (
             <Image
               source={{ uri: this.state.displayImage }}
