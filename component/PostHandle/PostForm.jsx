@@ -1,26 +1,12 @@
 import React, { Component } from "react";
-import { useNavigation } from "@react-navigation/native";
 import {
   Image,
   View,
   StyleSheet,
   TextInput,
   TouchableOpacity,
-  ScrollView,
 } from "react-native";
-import {
-  Container,
-  Content,
-  Card,
-  CardItem,
-  Thumbnail,
-  Text,
-  Button,
-  Left,
-  Body,
-  Right,
-} from "native-base";
-import Post from "./Post";
+import { Content, Text } from "native-base";
 import { PostImagePicker } from "./PostImagePicker";
 import * as firebase from "firebase";
 
@@ -61,7 +47,6 @@ export default class PostForm extends Component {
   };
 
   handleSubmit = async () => {
-    // console.log(firebase.auth().currentUser);
     var newTask = {
       text: this.state.task,
       posterName: firebase.auth().currentUser.displayName,
@@ -71,13 +56,15 @@ export default class PostForm extends Component {
     await db
       .collection("posts")
       .add(newTask)
-      .then(async (item) => { //img
+      .then(async (item) => {
+        //img
         await this.uploadPostImg(item.id);
-        newTask.id = item.id;//useless
+        newTask.id = item.id; //useless
       })
       .then(() => {
-        this.props.updateTasks();//fetch all tasks or posts
-        this.setState({//reset feild
+        this.props.updateTasks(); //fetch all tasks or posts
+        this.setState({
+          //reset feild
           task: "",
         });
       })
@@ -98,9 +85,7 @@ export default class PostForm extends Component {
 
   render() {
     return (
-      // <Container>
       <Content contentContainerStyle={styles.container}>
-        {/* <ScrollView> */}
         <View style={{ paddingBottom: 30 }}>
           <TextInput
             style={styles.textInput}
@@ -109,7 +94,6 @@ export default class PostForm extends Component {
             onChangeText={this.handleChange}
             value={this.task}
           />
-          {/* <PostImagePicker /> */}
           <PostImagePicker
             email={this.state.email}
             setImgRef={this.setImgRef}
@@ -129,24 +113,14 @@ export default class PostForm extends Component {
             <Text style={styles.btnText}>Add</Text>
           </TouchableOpacity>
         </View>
-
-        {/* <Post />  */}
-        {/* </ScrollView> */}
       </Content>
-      // </Container>
     );
   }
 }
 
-// export default function (props) {
-//   const navigation = useNavigation();
-//   return <PostForm {...props} navigation={navigation} />;
-// }
-
 const styles = StyleSheet.create({
   container: {
     alignItems: "center",
-    // flex: 1,
     marginTop: 50,
   },
   text: {

@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { Image, View, StyleSheet } from "react-native";
 import {
-  Container,
   Content,
   Card,
   CardItem,
@@ -56,17 +55,10 @@ export default class Post extends Component {
   }
 
   render() {
-    const {
-      text,
-      handleDelete,
-      posterName,
-      image,
-      handleEdit,
-      id,
-    } = this.props;
+    const { text, handleDelete, posterName, image, id } = this.props;
 
     const { postImage, posterImage } = this.state;
-
+    // const { navigation } = this.props.navigation;
     return (
       <Content contentContainerStyle={styles.container}>
         <Card style={styles.card}>
@@ -118,7 +110,11 @@ export default class Post extends Component {
                     name="comment-edit"
                     size={33}
                     color="black"
-                    // onPress={handleEdit}
+                    onPress={() => {
+                      this.props.navigation.push("EditPost", {
+                        postID: this.props.id,
+                      });
+                    }}
                   />
                 </Button>
                 <Button transparent style={styles.btn}>
@@ -138,15 +134,9 @@ export default class Post extends Component {
   }
 }
 
-// export default function (props) {
-//   const navigation = useNavigation();
-//   return <Post {...props} navigation={navigation} />;
-// }
-
 const styles = StyleSheet.create({
   container: {
     alignItems: "center",
-    // justifyContent: "center",
   },
   card: {
     width: "90%",

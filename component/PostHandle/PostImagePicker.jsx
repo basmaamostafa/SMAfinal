@@ -54,6 +54,7 @@ export function PostImagePicker(props) {
         alignItems: "center",
         justifyContent: "center",
         flexDirection: "row",
+        marginBottom: 20,
       }}
     >
       <TouchableOpacity
@@ -72,20 +73,6 @@ export function PostImagePicker(props) {
       >
         <Entypo name="images" size={28} color="#000" />
       </TouchableOpacity>
-      {/* {image && (
-        <Image
-          source={{ uri: image }}
-          style={{
-            width: 270,
-            height: 200,
-            borderRadius: 5,
-
-            alignSelf: "center",
-
-            marginVertical: 10,
-          }}
-        />
-      )} */}
     </View>
   );
 }

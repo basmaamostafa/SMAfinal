@@ -1,32 +1,10 @@
 import React, { Component } from "react";
-import {
-  StyleSheet,
-  View,
-  ImageBackground,
-  TouchableOpacity,
-  ScrollView,
-  StatusBar,
-  Image,
-} from "react-native";
-import {
-  Container,
-  Header,
-  Content,
-  Card,
-  CardItem,
-  Thumbnail,
-  Text,
-  Button,
-  Icon,
-  Left,
-  Body,
-  Right,
-} from "native-base";
+import { StyleSheet, TouchableOpacity } from "react-native";
+import { Container, Content, Text } from "native-base";
 
 import { useNavigation } from "@react-navigation/native";
 import PostsList from "./PostHandle/PostsList";
 import PostForm from "./PostHandle/PostForm";
-import Post from "./PostHandle/Post";
 import * as firebase from "firebase";
 
 var firebaseConfig = {
@@ -76,8 +54,6 @@ export class HomeScreen extends Component {
     this.setState({ taskList: taskList });
   };
 
-
-
   handleDelete = async (id) => {
     await db
       .collection("posts")
@@ -118,7 +94,6 @@ export class HomeScreen extends Component {
             handleDelete={this.handleDelete}
             // handleEdit={this.handleEdit}
           />
-
         </Content>
       </Container>
     );

@@ -1,38 +1,26 @@
 import "react-native-gesture-handler";
 import React, { Component } from "react";
-import { StyleSheet, Text, View, Button } from "react-native";
-
+import { StyleSheet } from "react-native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { NavigationContainer } from "@react-navigation/native";
 import { Registration } from "./component/auth/Registration";
-// import Signup from "./Component/Authentication/Signup";
 import { LogIn } from "./component/auth/LogIn";
 import { SplashScreen } from "./component/splashScreen";
 import { HomeScreen } from "./component/homeScreen";
-// import Post from "./Component/PostHandle/Post";
-// import PostForm from "./Component/PostHandle/PostForm";
+import EditPost from "./component/PostHandle/EditPost";
 import * as firebase from "firebase";
-
+import { LogBox } from "react-native";
 const Stack = createStackNavigator();
-
+LogBox.ignoreLogs([
+  "Setting a timer for a long period of time",
+  "Possible Unhandled Promise Rejection",
+]);
 export default class App extends Component {
   render() {
     // return <Registration />;
 
     return (
-      <NavigationContainer
-      // initialRouteName="hiiiiiii"
-      // screenOptions={{
-      //   headerTitleAlign: "center",
-      //   headerStyle: {
-      //     backgroundColor: "#3740FE",
-      //   },
-      //   headerTintColor: "#fff",
-      //   headerTitleStyle: {
-      //     fontWeight: "bold",
-      //   },
-      // }}
-      >
+      <NavigationContainer>
         <Stack.Navigator>
           <Stack.Screen
             name="SplashScreen"
@@ -43,14 +31,9 @@ export default class App extends Component {
               },
             }}
           />
-          <Stack.Screen
-            name="Registration"
-            component={Registration}
-            // options={{ headerLeft: null }}
-          />
+          <Stack.Screen name="Registration" component={Registration} />
 
           <Stack.Screen name="LogIn" component={LogIn} />
-          {/* <Stack.Screen name="Post" component={Post} /> */}
           <Stack.Screen
             name="HomeScreen"
             component={HomeScreen}
@@ -60,11 +43,15 @@ export default class App extends Component {
               },
             }}
           />
-          {/* <Stack.Screen
-            name="UserDetailScreen"
-            component={UserDetailScreen}
-            options={{ title: "User Detail" }}
-          /> */}
+          <Stack.Screen
+            name="EditPost"
+            component={EditPost}
+            options={{
+              header: () => {
+                "none";
+              },
+            }}
+          />
         </Stack.Navigator>
       </NavigationContainer>
     );
