@@ -43,10 +43,10 @@ export function PostImagePicker(props) {
     });
     if (!result.cancelled) {
       props.setImgRef(result.uri);
-      // 
+      //
     }
   };
- 
+
   return (
     <View
       style={{

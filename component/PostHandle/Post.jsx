@@ -37,36 +37,44 @@ export default class Post extends Component {
   }
 
   getImageURI = async (postID) => {
+    // Post Image
     const ref = firebase.storage().ref("PostImages/" + postID);
     const url = await ref.getDownloadURL();
     this.setState({ postImage: url });
   };
 
+  getPosterImageURI = async (posterID) => {
+    // Poster Image
+    const ref = firebase.storage().ref("ProfileImages/" + posterID);
+    const url = await ref.getDownloadURL();
+    this.setState({ posterImage: url });
+  };
+
   componentDidMount() {
     this.getImageURI(this.props.id);
+    this.getPosterImageURI(this.props.posterId);
   }
 
   render() {
     const {
       text,
       handleDelete,
-      userName,
-      imgProfile,
+      posterName,
       image,
       handleEdit,
       id,
     } = this.props;
 
-    const { postImage } = this.state;
+    const { postImage, posterImage } = this.state;
 
     return (
       <Content contentContainerStyle={styles.container}>
         <Card style={styles.card}>
           <CardItem>
             <Left>
-              <Thumbnail style={styles.profile} source={{ uri: imgProfile }} />
+              <Thumbnail style={styles.profile} source={{ uri: posterImage }} />
               <Body>
-                <Text style={{ fontSize: 18 }}>{userName}</Text>
+                <Text style={{ fontSize: 18 }}>{posterName}</Text>
               </Body>
             </Left>
           </CardItem>

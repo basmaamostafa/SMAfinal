@@ -67,7 +67,7 @@ export class HomeScreen extends Component {
     this.setState({ displayImage: url });
   };
 
-  getPosts = async () => {
+  getPosts = async () => {//get all posts
     const result = await db.collection("posts").get();
     const taskList = result.docs.map((doc) => {
       return { id: doc.id, ...doc.data() };
@@ -138,8 +138,6 @@ export class HomeScreen extends Component {
             taskList={this.state.taskList}
             handleDelete={this.handleDelete}
             handleEdit={this.handleEdit}
-            imgProfile={this.state.displayImage}
-            userName={this.state.displayName}
           />
 
           {/* <Text>home</Text> */}

@@ -61,20 +61,23 @@ export default class PostForm extends Component {
   };
 
   handleSubmit = async () => {
+    // console.log(firebase.auth().currentUser);
     var newTask = {
       text: this.state.task,
+      posterName: firebase.auth().currentUser.displayName,
+      posterId: firebase.auth().currentUser.uid,
     };
 
     await db
       .collection("posts")
       .add(newTask)
-      .then(async (item) => {
+      .then(async (item) => { //img
         await this.uploadPostImg(item.id);
-        newTask.id = item.id;
+        newTask.id = item.id;//useless
       })
       .then(() => {
-        this.props.updateTasks();
-        this.setState({
+        this.props.updateTasks();//fetch all tasks or posts
+        this.setState({//reset feild
           task: "",
         });
       })

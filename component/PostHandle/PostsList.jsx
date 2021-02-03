@@ -28,13 +28,7 @@ export default class PostsList extends Component {
     this.state = {};
   }
   render() {
-    const {
-      taskList,
-      handleDelete,
-      userName,
-      imgProfile,
-      handleEdit,
-    } = this.props;
+    const { taskList, handleDelete, handleEdit } = this.props;
 
     return (
       <ScrollView>
@@ -46,8 +40,8 @@ export default class PostsList extends Component {
               id={task.id}
               handleDelete={() => handleDelete(task.id)}
               handleEdit={() => handleEdit(task.id)}
-              imgProfile={imgProfile}
-              userName={userName}
+              posterId={task.posterId}
+              posterName={task.posterName}
             />
           );
         })}
